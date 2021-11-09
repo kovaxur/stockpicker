@@ -7,7 +7,7 @@ import queue
 
 logger = logging.getLogger("basicLogger")
 
-THREADS = 20
+THREADS = 10
 
 
 class Picker:
@@ -59,7 +59,7 @@ class Picker:
         worker_threads = []
         for i in range(0, THREADS):
             logger.critical("Starting thread %s", str(i))
-            th = YahooFinance(ticker_queue, "roa")
+            th = YahooFinance(ticker_queue, "roa", i)
             th.start()
             worker_threads.append(th)
 
@@ -89,7 +89,7 @@ class Picker:
         worker_threads = []
         for i in range(0, THREADS):
             logger.critical("Starting thread %s", str(i))
-            th = YahooFinance(ticker_queue, "pe")
+            th = YahooFinance(ticker_queue, "pe", i)
             th.start()
             worker_threads.append(th)
 
