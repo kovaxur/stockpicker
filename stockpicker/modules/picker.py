@@ -25,14 +25,14 @@ class Picker:
         tickers = self.filter_tickers_by_min_roa(25, tickers)
         logger.critical("Found number of tickers: %s", str(len(tickers)))
 
-        # Order the list based on ROA -> lower gets less points
+        # Order the list based on ROA -> lower gets less score
         tickers.sort(key=lambda x: x.roa)
         asd = 1
         for ticker in tickers:
             ticker.roa_order = asd
             asd = asd + 1
 
-        # Order the list based on PE -> higher gets less points
+        # Order the list based on PE -> higher gets less score
         tickers.sort(key=lambda x: x.pe, reverse=True)
         asd = 1
         for ticker in tickers:
@@ -40,12 +40,12 @@ class Picker:
             asd = asd + 1
 
         for ticker in tickers:
-            ticker.points = ticker.roa_order + ticker.pe_order
+            ticker.score = ticker.roa_order + ticker.pe_order
 
-        tickers.sort(key=lambda x: x.points, reverse=True)
+        tickers.sort(key=lambda x: x.score, reverse=True)
         for ticker in tickers:
-            logger.critical("Symbol: %s, Points: %s, ROA: %s(%s), PE: %s(%s)",
-                            str(ticker.symbol), str(ticker.points), str(ticker.roa),
+            logger.critical("Symbol: %s, Score: %s, ROA: %s(%s), PE: %s(%s)",
+                            str(ticker.symbol), str(ticker.score), str(ticker.roa),
                             str(ticker.roa_order), str(ticker.pe), str(ticker.pe_order))
 
     def filter_tickers_by_min_roa(self, min_roa, tickers):

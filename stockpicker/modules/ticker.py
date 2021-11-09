@@ -11,15 +11,4 @@ class Ticker:
         self.pe = None
         self.roa_order = None
         self.pe_order = None
-        self.points = None
-
-    def __gt__(self, other):
-        if self.points > other.points:
-            return True
-        return False
-
-    def __eq__(self, other):
-        if self.points == other.points:
-            return True
-        return False
-
+        self.score = None
